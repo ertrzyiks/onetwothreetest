@@ -1,0 +1,41 @@
+<md-toolbar>
+    <h2 class="md-toolbar-tools">
+        <span>123 Test</span>
+        <span flex></span>
+        <span><% if (user) { %><span hide-sm>Hello,</span> <%= user.displayName %><% } %></span>
+    </h2>
+</md-toolbar>
+
+<md-content layout-padding ng-controller="RepoListController">
+    <md-subheader class="md-primary">Preview android xml values from you github repository</md-subheader>
+
+<% if (!user) { %>
+    <div layout="row" layout-align="center center">
+        <md-button class="md-raised" href="/auth/github">Login with GitHub</md-button>
+    </div>
+<% } else { %>
+	<h2>Select repository</h2>
+
+    <md-list>
+        <md-item ng-repeat="repo in repos track by repo.id">
+            <md-item-content>
+                <div class="md-tile-content">
+                    <h3><a href="/show/{{repo.full_name}}">{{repo.full_name}}</a></h3>
+                    <h4>{{repo.url}}</h4>
+                    <p>
+                        {{repo.description}}
+                    </p>
+                </div>
+            </md-item-content>
+            <md-divider ng-if="!$last"></md-divider>
+        </md-item>
+    </md-list>
+
+    <div ng-if="isLoading" layout="row" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    <md-button ng-if="!isLoading" ng-click="loadMoreRepos()">More</md-button>
+<% } %>
+
+</md-content>
