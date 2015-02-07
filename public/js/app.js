@@ -21,3 +21,9 @@ app.controller('RepoListController', function ($scope, $http) {
 
     $scope.loadMoreRepos();
 });
+
+app.filter('show_ago', function () {
+    return function(input) {
+        return moment(input).fromNow();
+    };
+});

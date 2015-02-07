@@ -21,7 +21,7 @@
             <md-item-content>
                 <div class="md-tile-content">
                     <h3><a href="/show/{{repo.full_name}}">{{repo.full_name}}</a></h3>
-                    <h4>{{repo.url}}</h4>
+                    <h4>Last update: {{repo.updated_at | show_ago}}</h4>
                     <p>
                         {{repo.description}}
                     </p>
