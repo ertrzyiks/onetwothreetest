@@ -1,0 +1,39 @@
+
+<md-content layout-padding flex ng-controller="XmlListController" ng-init="repoName='<%= repoName %>'">
+    <md-subheader class="md-primary">Preview android xml values from you github repository</md-subheader>
+
+
+    <section layout="row" flex>
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="true">
+            <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools">XMLs (<%= xmls.length %>)</h1>
+            </md-toolbar>
+
+            <md-content class="md-padding">
+                <md-list>
+                    <% for (var i = 0; i < xmls.length; i++) { %>
+                    <md-item>
+                        <md-item-content>
+                            <div class="md-tile-content">
+                                <md-button ng-click="showContent('<%= xmls[i].path %>')"><%= xmls[i].name %></md-button>
+
+                                <p><%= xmls[i].path %></p>
+                            </div>
+                        </md-item-content>
+                    </md-item>
+                    <% } %>
+                </md-list>
+            </md-content>
+        </md-sidenav>
+
+        <div class="md-whiteframe-z1" flex layout-padding>
+            <div ng-if="isLoading" layout="row" flex layout-padding layout-align="center start">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <code ng-if="!isLoading">
+                <pre ng-bind="content"></pre>
+            </code>
+        </div>
+    </section>
+</md-content>

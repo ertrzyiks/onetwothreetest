@@ -9,7 +9,9 @@ var express = require('express'),
     expressLayouts = require('express-ejs-layouts'),
     GitHubStrategy = require('passport-github').Strategy,
 
-    getRepos = require('./src/get_repos.js');
+    getXmls = require('./src/get_xmls.js'),
+    getRepos = require('./src/get_repos.js'),
+    getContent = require('./src/get_content.js');
 
 var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
@@ -61,9 +63,46 @@ app.get('/', function(req, res){
     res.render('index', { user: req.user, layout: 'layout.ejs' });
 });
 
+app.get(/^\/show\/([^\/]+)\/([^\/]+)/, function (req, res) {
+    if (!req.user) {
+        return res.redirect('/');
+    }
+
+    var user = req.params[0],
+        repo = req.params[1],
+        repoName = user + '/' + repo;
+
+    getXmls(req.user.accessToken, repoName, function (err, list) {
+        res.render('show', {
+            user: req.user,
+            xmls: list.items,
+            repoName: repoName,
+            layout: 'layout.ejs'
+        });
+    });
+});
+
 app.get('/repos/:page', function(req, res){
+    if (!req.user) {
+        return res.send([]);
+    }
+
     getRepos(req.user.accessToken, req.params.page, function (err, list) {
         res.send(list);
+    });
+});
+
+app.get(/^\/content\/([^\/]+)\/([^\/]+)/, function (req, res) {
+    if (!req.user) {
+        return "";
+    }
+
+    var user = req.params[0],
+        repo = req.params[1];
+
+    getContent(req.user.accessToken, { user: user,  repo: repo, path: req.query.path }, function (err, content) {
+        console.log(err);
+        res.send(content);
     });
 });
 

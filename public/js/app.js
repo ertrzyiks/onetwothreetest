@@ -22,6 +22,22 @@ app.controller('RepoListController', function ($scope, $http) {
     $scope.loadMoreRepos();
 });
 
+app.controller('XmlListController', function ($scope, $http) {
+    $scope.repoName = '';
+    $scope.content = 'Select file to preview';
+    $scope.isLoading = false;
+
+    $scope.showContent = function (path) {
+        $scope.isLoading = true;
+
+        $http.get('/content/' + $scope.repoName + '?path=' + encodeURIComponent(path))
+            .success(function (data, status, headers, config) {
+                $scope.isLoading = false;
+                $scope.content = window.atob(data.content);
+            });
+    };
+});
+
 app.filter('show_ago', function () {
     return function(input) {
         return moment(input).fromNow();

@@ -8,6 +8,14 @@
 
     </head>
 	<body>
+        <md-toolbar>
+            <h2 class="md-toolbar-tools">
+                <span>123 Test</span>
+                <span flex></span>
+                <span><% if (user) { %><span hide-sm>Hello,</span> <%= user.displayName %><% } %></span>
+            </h2>
+        </md-toolbar>
+
         <%- body %>
 
         <!-- Angular Material Dependencies -->
