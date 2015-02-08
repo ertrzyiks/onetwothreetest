@@ -24,7 +24,7 @@ app.controller('RepoListController', function ($scope, $http) {
 
 app.controller('XmlListController', function ($scope, $http) {
     $scope.repoName = '';
-    $scope.content = 'Select file to preview';
+    $scope.content = null;
     $scope.isLoading = false;
 
     $scope.editorOptions = {

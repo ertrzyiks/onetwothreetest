@@ -41,7 +41,9 @@
                 <md-progress-circular md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <div ng-if="!isLoading" ng-model="content" ui-codemirror ui-codemirror-opts="editorOptions"></div>
+            <span ng-if="!isLoading && content === null">Select file to preview</span>
+            <div ng-if="!isLoading && content !== null" ng-model="content" ui-codemirror ui-codemirror-opts="editorOptions">
+            </div>
         </div>
     </section>
     <% } %>
