@@ -31,7 +31,8 @@ app.controller('XmlListController', function ($scope, $http) {
         lineWrapping : true,
         lineNumbers: true,
         readOnly: 'nocursor',
-        mode: 'xml'
+        mode: 'xml',
+        viewportMargin: Infinity
     };
 
     $scope.showContent = function (path) {
