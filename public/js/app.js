@@ -32,7 +32,34 @@ app.controller('XmlListController', function ($scope, $http) {
         lineNumbers: true,
         readOnly: 'nocursor',
         mode: 'xml',
-        viewportMargin: Infinity
+        viewportMargin: Infinity,
+        gutters: ["color-gutter", "CodeMirror-linenumbers"]
+    };
+
+    function makeMarker(color) {
+        var marker = document.createElement("div");
+        marker.style.color = color;
+        marker.style.fontSize = '26px';
+        marker.innerHTML = "\u25A0";
+        return marker;
+    }
+
+    $scope.codemirrorLoaded = function (_editor) {
+        _editor.on('change', function () {
+            var doc = _editor.getDoc(),
+                lines = doc.lineCount(),
+                i, content, res;
+
+            for (i = 0; i < lines; i++) {
+                content = doc.getLine(i);
+
+                res = content.match(/#([0-9A-F]{6}|[0-9A-F]{3})/i);
+
+                if (res) {
+                    _editor.setGutterMarker(i, "color-gutter", makeMarker(res[0]));
+                }
+            }
+        });
     };
 
     $scope.showContent = function (path) {

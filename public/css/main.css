@@ -1,3 +1,7 @@
 .CodeMirror {
     height: auto;
 }
+
+.CodeMirror-gutter-elt {
+    width: 26px;
+}

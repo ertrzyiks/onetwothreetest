@@ -42,7 +42,11 @@
             </div>
 
             <span ng-if="!isLoading && content === null">Select file to preview</span>
-            <div ng-if="!isLoading && content !== null" ng-model="content" ui-codemirror ui-codemirror-opts="editorOptions">
+            <div
+                ng-if="!isLoading && content !== null"
+                ng-model="content"
+                ui-codemirror="{ onLoad : codemirrorLoaded }"
+                ui-codemirror-opts="editorOptions">
             </div>
         </div>
     </section>
