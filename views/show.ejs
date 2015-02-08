@@ -41,9 +41,7 @@
                 <md-progress-circular md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <code ng-if="!isLoading">
-                <pre ng-bind="content"></pre>
-            </code>
+            <div ng-if="!isLoading" ng-model="content" ui-codemirror ui-codemirror-opts="editorOptions"></div>
         </div>
     </section>
     <% } %>

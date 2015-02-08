@@ -1,4 +1,4 @@
-var app = angular.module('OneTwoThreeApp', ['ngMaterial']);
+var app = angular.module('OneTwoThreeApp', ['ngMaterial', 'ui.codemirror']);
 
 app.controller('RepoListController', function ($scope, $http) {
     $scope.isLoading = false;
@@ -26,6 +26,13 @@ app.controller('XmlListController', function ($scope, $http) {
     $scope.repoName = '';
     $scope.content = 'Select file to preview';
     $scope.isLoading = false;
+
+    $scope.editorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+        readOnly: 'nocursor',
+        mode: 'xml'
+    };
 
     $scope.showContent = function (path) {
         $scope.isLoading = true;
