@@ -2,7 +2,17 @@
 <md-content layout-padding flex ng-controller="XmlListController" ng-init="repoName='<%= repoName %>'">
     <md-subheader class="md-primary">Preview android xml values from you github repository</md-subheader>
 
+    <% if (xmls.length == 0) { %>
+    <md-toolbar class="md-tall md-accent">
+        <h2 class="md-toolbar-tools">
+            <span>I cant find any resource xml in your repo ;(</span>
+        </h2>
 
+        <div layout-padding>
+            <md-button href="/">Back</md-button>
+        </div>
+    </md-toolbar>
+    <% } else {%>
     <section layout="row" flex>
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="true">
             <md-toolbar class="md-theme-indigo">
@@ -36,4 +46,5 @@
             </code>
         </div>
     </section>
+    <% } %>
 </md-content>
