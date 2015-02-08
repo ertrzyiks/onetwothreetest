@@ -101,7 +101,6 @@ app.get(/^\/content\/([^\/]+)\/([^\/]+)/, function (req, res) {
         repo = req.params[1];
 
     getContent(req.user.accessToken, { user: user,  repo: repo, path: req.query.path }, function (err, content) {
-        console.log(err);
         res.send(content);
     });
 });
